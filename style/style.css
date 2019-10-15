@@ -1,0 +1,508 @@
+/* Setup basics CSS */
+
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; 
+}
+
+html {
+	font-size: 62.5%; /* 1rem = 10px */
+}
+body {
+	font-family: "Lato", sans-serif;
+	line-height: 1;
+	font-weight: 400;
+}
+a {
+	text-decoration: underline;
+}
+img {
+	display: block;
+	max-width: 100%;
+}
+button {
+	cursor: pointer;
+}
+input,
+textarea,
+button {
+	outline: none;
+	box-shadow: none;
+	font-family: "Lato", sans-serif;
+}
+/* Your style start from here */
+.wrapper {
+	max-width: 160rem;	/*Đặt chiều rộng của trang web 1600px*/
+	margin: 0 auto;
+}
+/*Khai báo biến*/
+:root {
+	--primary: #70c6a6;				/*Xanh lá: chủ đạo*/
+	--heading: #353738;				/*Xanh đậm: tiêu đề*/
+	--text: #848789;				/*Xám nhạt: chữ*/
+	--input-border: #d3d7d9;		/*màu border*/
+	--input-text: #929292;			/*màu input*/
+	--bg-light: #f7f7f7;			/*Xám mờ: màu nền*/
+	--bg-dark: #1a1c28;
+}
+.header{
+	min-height: 80rem;
+	background-image: url("../images/img-bg-header.png");
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start			/*???*/
+}
+.nav {
+	margin-top: 3rem;
+}
+.nav_list {
+	display: flex;
+	align-items: center;			/*Canh giữa cho từng item li*/
+}
+.nav_item {
+	/*Khoảng cách giữa các item 80px*/
+	padding-left: 4rem;
+	padding-right: 4rem;
+	position: relative;				/*để sử dụng :after chèn dấu '.'*/
+}
+.nav_link {
+	position: relative;				/*để sử dụng :after/before/hover chèn dấu '.'*/
+	display: block;
+	text-transform: uppercase;
+	color: var(--heading);
+	text-decoration: none;
+	font-size: 1.3rem;
+	font-weight: 700;
+}
+/*Sau phần tử đầu tiên:About us và phần tử thứ (4)shop*/
+.nav_item:first-child:after,
+.nav_item:nth-child(4):after {
+	
+	content: ".";
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	font-size: 2rem;
+}
+/*ẩn khi màn hình lớn hơn 768px*/
+@media only screen and (min-width: 768px) {
+	.btn_collapse {
+		display: none;
+	}
+}
+/*Khi màn hình nhỏ hơn 767px thì thực hiện như sau*/
+@media only screen and (max-width: 767px) {
+	.nav {
+		/*cho cái bg chiếm cả chiều ngang*/
+		width: 100%;
+	}
+	.nav_item {
+		margin-top: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+	.nav_item:after {
+		display: none;
+	}
+	.btn_collapse,
+	.nav_bg {
+		position: fixed;
+		top: 1.5rem;
+		right: 1.5rem;
+		width: 5rem;
+		height: 5rem;
+		font-size: 2rem;
+		border-radius: 5rem;
+		text-align: center;
+		line-height: 5rem;
+		background-color: var(--primary);
+		color: white;
+		cursor: pointer;
+		z-index: 10;
+	}
+	.nav_bg {
+		/*cái bg ở dưới cói icon*/
+		background-color: #eee;
+		z-index: 8;
+		transition: transform 0.25s linear;
+	}
+	.nav_list {
+		flex-direction: column;
+		position: fixed;
+		left: 0;
+		width: 100%;
+		z-index:9;
+		/*Biến mất sau rìa bên trái*/
+		transform: translateX(-100%);
+		transition: transform .25s linear;
+	}
+	.inp_collapse:checked + .nav_bg {
+		/*giãn rộng ra theo hình tròn*/
+		transform: scale(80);
+	}
+ 
+	.inp_collapse:checked ~ .nav_list {
+		transform: translateX(0)
+	}
+}
+/*-------------*/
+.feature_header {
+	background-color: var(--bg-light);
+	padding: 11rem 1.5rem 14rem;	/*top right bottom*/
+	text-align: center;
+}
+/*Dùng cho cả heading của các phần dưới*/
+.feature_img-top {
+	margin: 0 auto 3rem;			/*Cách tiêu đề 30px*/
+}
+/*Dùng cho cả heading của các phần dưới*/
+.feature_heading {
+	 font-size: 1.8rem;
+	 line-height: 1.6;			/*Dung lam chi??*/
+	 text-transform: uppercase;
+	 color: var(--heading);
+	 margin-bottom: 2rem;		/*Cách đoạn văn 30px =>2rem???*/
+	 font-weight: bold;
+	 text-align: center;
+}
+.feature_header-desc {
+	font-size: 1.8rem;
+	line-height: 1.6;		/*34pt???*/
+	color: var(--text);
+	max-width: 106rem;
+	margin: 0 auto;			/*Căn chính giữa cho ô text luôn*/
+	text-align: center;		/*Căn chính giữa cho nội dung text*/
+}
+/**/
+.feature_item {
+	display: flex;
+	flex-flow: row wrap;	/*Hiện thị theo hàng ngang thuận, có wrap xuống*/
+	height: 60rem;
+	overflow: hidden;		/*Không dùng thanh cuộn, không chứa đc thì bỏ*/
+}
+.feature_item-img {
+	width: 67%;
+	position: relative;		/*Để hiển thị icon brand lên trên?*/
+}
+.feature_item-content {
+	width: 33%;
+}
+
+.feature_item .img_bg {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.feature_item .img_brand {
+  position: absolute;		/*Canh phần tử con 'brand' theo cha 'bg' với giá trị left right*/
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.feature_item-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.feature_item-content-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;		/*Đẩy nội dung về giữa*/
+  padding: 0 7rem;
+  position: relative;
+  background-color: white;
+  height: 67%;
+}
+/*Taoj muix tên tam giác*/
+.feature_item-content-top:after {
+content: "";
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 2rem;
+	height: 2rem;
+	background-color: white;
+	z-index: 10;
+	transform: translate(-50%, 50%) rotate(-45deg);
+}
+.feature_item-text:after {
+  content: "";
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 6rem;
+	height: 1px;
+	background-color: var(--bg-light);
+}
+.feature_item-content-bottom {
+  height: 33%;
+}
+.feature_item-text {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--text);
+  text-align: justify;
+  position: relative;
+  padding-bottom: 3rem;
+}
+.feature_item:nth-child(2) .feature_item-img{
+	order: 2;		/*Change order img => content tự đổi*/
+}
+.feature_item:last-child > .feature_item-img {
+	width:33%;
+}
+.feature_item:last-child > .feature_item-content {
+	width:34%;
+}
+
+@media only screen and (max-width: 1179px){
+  .feature_item-content-top {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+@media only screen and (max-width: 767px){
+  .feature_item {
+    height: auto;
+    flex-direction: column;
+  }
+  .feature .feature_item > .feature_item-img,
+  .feature .feature_item > .feature_item-content {
+    width: 100%;
+  }
+    .feature_item-content-top {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+/*-------*/
+.tweet {
+  padding: 12.5rem 1.5rem 7rem;  /*top leftRight bottom*/
+  background-color: var(--bg-light);
+  text-align: center;
+}
+.tweet_icon {
+  font-size: 4rem;
+  color: #00aefd;
+  margin-bottom: 3rem;
+}
+.tweet_heading {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+.tweet_location,
+.tweet_author {
+  color: var(--heading);
+  font-weight: bold;
+}
+.tweet_time {
+  color: var(--text);
+  font-weight: 300;
+  padding-left: 1.5rem;
+  margin-left: 1.5rem;
+  position: relative;	/*Note*/
+}
+
+.tweet_time:before {
+  content: "/";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.tweet_content{
+  font-size: 2.4rem;
+  line-height: 1.4;
+  color: var(--text);
+  font-style: italic;
+  max-width: 104.5rem;
+  margin: 0 auto 10rem;
+}
+.tweet_pagi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tweet_pagi-item {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 5rem;
+  border: 1px solid var(--text);
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+.tweet_pagi-item.is-active {
+  background-color: var(--text);
+}
+/*image*/
+.images {
+  display: flex;			/*1 hàng 3 cột*/
+  justify-content: space-between;
+  height: 53.5rem;
+  overflow: hidden;
+}
+/*CHia ra 3 block bằng nhau, theo hàng ngang*/
+.images_block {
+  width: 33.333%;
+  height: 100%;
+  display: flex;
+}
+.images_block:first-child {
+	flex-direction: column; 	/*Côt: trên có hai ảnh + dưới có 1 ảnh*/
+}
+.images_block-item {
+	height:50%;					/*Mỗi hàng cao 50%*/
+	width: 100%;
+}
+.images_block-item:first-child {
+	display: flex; 				/*Hai hình trong một hàng*/
+}
+.images_item {
+	height: 100%;
+	width: 50%;					/*Làm item ở dưới cũng 50% theo*/
+}
+.images_block-item:last-of-type .images_item {
+  width: 100%;
+}
+.images_block:last-child {
+  flex-direction: column-reverse;
+}
+
+.images_item {
+  position: relative;		/*Để đặt icon vs bg lên*/
+}
+.images_item:before { 		/*Chèn màu nền lên*/
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #70c6a6c9;
+  z-index: 10;
+  display: none;
+}
+/*Hình ảnh chiếm hết khung diện tích của mình*/
+.images_item-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/*Chèn brand lên*/
+.images_item-brand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  text-align: center;
+  display: none;			
+}
+.images_item-brand > img {
+  margin: 0 auto;
+}
+.images_item-text {
+  text-transform: uppercase;
+  color: white;
+  font-size: 1.6rem;
+  margin-top: .5rem;
+  font-weight: bold;
+}
+/*rê chuột lên mới hiện brand vd bg*/
+.images_item:hover:before,
+.images_item:hover .images_item-brand {
+  display: block;
+}
+@media only screen and (max-width: 767px){
+  .images {
+    height: auto;
+    flex-direction: column;
+  }
+}
+  .images_block {
+    width: 100%
+  }
+  /*auto vì trong một số trường hợp ảnh có kích thước khác nhau nên không set 100%*/
+  .images_item {
+    height: auto;
+  }
+/**/
+/*btn nằm chính giữa và cách mép trên mép dưới là 70px*/
+.discover {
+  padding: 7rem 1.5rem;
+  background-color: var(--bg-dark);
+  text-align: center;
+}
+
+.discover_btn {
+  display: inline-block;
+  min-width: 30rem;
+  padding: 2rem;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  color: white;
+  border: 1px solid currentColor;
+  box-shadow: none;
+  outline: none;
+  text-decoration: none;
+  font-weight: bold;
+  transition: .2s linear;			/*Sử dụng cho hover*/
+}
+.discover_btn:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+/**/
+/*phần mail cách những phần trên/dưới 100px ,=> ko định nghĩa HEIGHT*/
+.mail {
+  padding: 10rem 1.5rem;
+  background-color: white;
+  text-align: center;
+}
+/*logo nằm chính giữa 'auto', cách phần tử dưới 35px*/
+.mail_logo {
+  margin: 0 auto 3.5rem;
+}
+.mail_text {
+  font-size: 2.4rem;
+  font-style: italic;
+  color: var(--text);
+  margin-bottom: 3.5rem;
+  display: inline-block;
+}
+/*gồm hai phần tử nằm trên một hàng => flex*/
+.mail_form {
+  display: flex;
+  justify-content: space-between;	/*giãn ra hai bên, 'space' ở giữa*/
+  max-width: 54rem;
+  margin: 0 auto;
+}
+.mail_form-inp {
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  padding: 2.5rem;
+  font-style: italic;
+  font-size: 2rem;
+  width: 74%;					/*1% khoảng trống*/
+}
+.mail_form-btn {
+  width: 25%;
+  border: 0;
+  outline: none;
+  color: white;
+  background-color: var(--primary);
+  text-transform: uppercase;
+  font-size: 2.4rem;
+  font-weight: 300;
+}
